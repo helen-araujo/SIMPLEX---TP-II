@@ -12,12 +12,14 @@ package simplex;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Simplex {
 
     Scanner input = new Scanner(System.in);
+    DecimalFormat df = new DecimalFormat("#.##");
     int linha = 4;
     int coluna = 8;
     double[][] matrizA;
@@ -113,9 +115,10 @@ public class Simplex {
             }
         }
         //imprimir matriz modificada
+        System.out.println("****OPERACOES DE ESCALONAMENTO****");
         for (int i = 0; i < linha; i++) {
             for (int j = 0; j < coluna; j++) {
-                System.out.print(matrizA[i][j]);
+                System.out.print(df.format(matrizA[i][j]) + "\t");
             }
             System.out.println('\n');
         }
@@ -153,19 +156,22 @@ public class Simplex {
                         index = i;
                     }
                 }
-                System.out.println("Nao basica x" + (j + 1) + " = " + matrizA[index][coluna - 1]);
-            } else {
+                System.out.println("Variáveis nao basicas x" + (j + 1) + " = " +df.format(matrizA[index][coluna - 1]));
+            } 
+            else {
                 System.out.println("Basica x" + (j + 1) + " = 0");
             }
         }
-        System.out.println("Z = " + -1 * matrizA[linha - 1][coluna - 1]);
+        System.out.println("Resultado = " + df.format(-1 * matrizA[linha - 1][coluna - 1]));
 
     }
+    
 
     public void Solucionar() {
         while (CustoReduzido()) {
-            System.out.println("****OPERACOES DE ESCALONAMENTO****");
+            
             Escalonamento();
+            
 
             // printMat();
         }
@@ -180,5 +186,7 @@ public class Simplex {
         simplex.MaiorCusto();
         simplex.Escalonamento();
         simplex.Solucionar();
+        
+        
     }
 }
