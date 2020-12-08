@@ -6,5 +6,6 @@
   <li> Plataforma de desenvolvimento: NetBeans</li>
   <li> É  necessário utilizar o arquivo  simplex.txt para o programa executar corretamente</li>
    <li> Foi exportada toda a pasta do projeto do netbeans para evitar de dar erro na execução</li>
+  <li> Foi utilizada a biblioteca de formatação de numeros decimais  para facilitar o entendimento  na hora da impressão</li>
    </ul>
    <p>Helen  Cristina Araujo</p>
