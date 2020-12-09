@@ -19,17 +19,22 @@ import java.util.logging.Logger;
 public class Simplex {
 
     Scanner input = new Scanner(System.in);
+    Scanner ler = new Scanner(System.in);
     DecimalFormat df = new DecimalFormat("#.##");
     int linha = 4;
     int coluna = 8;
     double[][] matrizA;
     double[] vetorSolucao;
     double custoTotal;
+    
+    String tipo;
+    
 
     //abrir arquivo .txt
     public void AbrirArquivo() {
         try {
-            input = new Scanner(new File("simplex.txt"));
+            input = new Scanner(new File("simplex testeM.txt"));
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Simplex.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -45,7 +50,11 @@ public class Simplex {
                     matrizA[i][j] = input.nextInt();
                 }
             }
+            tipo=input.next();
         }
+        
+       
+           
         for (int i = 0; i < linha; i++) {
             for (int j = 0; j < coluna; j++) {
                 System.out.print(matrizA[i][j] + " ");
@@ -53,8 +62,15 @@ public class Simplex {
             }
             System.out.println('\n');
         }
+        System.out.println(tipo);
+        if(tipo == "MIN")
+        for(int j=0; j<8; j++){
+            matrizA[matrizA.length-1][j]=matrizA[matrizA.length-1][j]*-1;
+        
     }
-
+    }
+        
+    /*********************************************************************************/
     //encontrar o maior custo = analisa a ultima linha
     public int MaiorCusto() {
         double custoMaior;
@@ -103,6 +119,7 @@ public class Simplex {
             if (pivo != 0) {
                 matrizA[pivoLinha][j] = matrizA[pivoLinha][j] / pivo;
             }
+            
         }
         pivo = matrizA[pivoLinha][pivoColuna];
         for (int i = 0; i < linha; i++) {
@@ -114,6 +131,7 @@ public class Simplex {
                 }
             }
         }
+        
         //imprimir matriz modificada
         System.out.println("****OPERACOES DE ESCALONAMENTO****");
         for (int i = 0; i < linha; i++) {
@@ -127,11 +145,14 @@ public class Simplex {
     //Verificar se inda existe numeros positivos na ultima linha - 
 
     public boolean CustoReduzido() {
+        //if(tipo == "MAX"){
         for (int j = 0; j < coluna; j++) {
             if (matrizA[matrizA.length - 1][j] > 0) {
                 return true;
             }
         }
+        
+    //}
         return false;
     }
 
@@ -162,8 +183,13 @@ public class Simplex {
                 System.out.println("Basica x" + (j + 1) + " = 0");
             }
         }
-        System.out.println("Resultado = " + df.format(-1 * matrizA[linha - 1][coluna - 1]));
-
+        if(matrizA[linha-1][coluna-1]<0){
+         System.out.println("Resultado = " +(matrizA[linha - 1][coluna - 1])*-1);   
+        }
+        else{
+         System.out.println("Resultado = " + (matrizA[linha - 1][coluna - 1]));
+        }
+        
     }
     
 
